@@ -8,13 +8,17 @@ import NewUser from './Components/NewUser/new';
 
 const App=()=>{
 
-  const [email,setEmail]=useState('login'); 
-  const [passw, setPass]=useState(''); 
+  const [form, setForm]=useState('login'); 
+  
+
+  const toggleForm = (formName) => {
+	setForm(formName)
+  }
 
 	return(
 		<div>
 			{
-				email == Login ? <Login/> : <NewUser/>
+				form == Login ? <Login formSwitch={toggleForm}/> : <NewUser/>
 			}
 		</div>
 	)

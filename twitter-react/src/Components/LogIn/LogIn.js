@@ -15,8 +15,8 @@ const Login = (props) => {
     }
 
 	return(
-    <div>
-        <form action="" onSubmit={submit}> 
+    <div className='authorizeBox'>
+        <form className='login-Box' action="" onSubmit={submit}> 
             <div> 
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/> 
@@ -27,6 +27,7 @@ const Login = (props) => {
             </div>  
             <button type="submit">Login</button>
         </form>
+        <button onFormSwitch={props.formSwitch}>Not A Member? Click Here.</button>
     </div>
 	)
 }

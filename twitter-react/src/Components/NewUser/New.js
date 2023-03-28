@@ -16,8 +16,8 @@ const NewUser = (props) => {
     }
 
 	return(
-    <div>
-        <form action="" onSubmit={submit}> 
+    <div className='authorizeBox'>
+        <form className='register-Box' action="" onSubmit={submit}> 
             <div>
             <label htmlFor=''>Full Name</label>
             <input value={name} name='' id="" placeholder=''/>
@@ -32,6 +32,7 @@ const NewUser = (props) => {
             </div>  
             <button type="submit">Login</button>
         </form>
+        <button onFormSwitch={props.formSwitch}>Already A Member? Click Here.</button>
     </div>
 	)
 }
