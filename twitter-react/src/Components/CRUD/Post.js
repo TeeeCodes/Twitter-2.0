@@ -12,8 +12,8 @@ function TodoList() {
 
     // FETCH METHOD
     const fetchData = async () => {
-        const res = await fetch("enter URL here");
-        const result = await res.json();
+        const response = await fetch("enter URL here");
+        const result = await response.json();
         setData(result)
     }
 
