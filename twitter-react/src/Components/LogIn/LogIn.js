@@ -8,12 +8,12 @@ const Login = () => {
 
     const popup = () => {
         setShow("login-popup")
-        setTimeout(() => show("hide"), 3000)
+        setTimeout(() => setShow("hide"), 2000)
     }
 
 	return(
     <div className='cover'>
-        <h1>Test</h1>
+        <h1>LogIn</h1>
         <input type='text' placeholder='username' />
         <input type='password' placeholder='password' />
 

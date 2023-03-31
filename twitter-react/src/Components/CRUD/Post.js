@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 function TodoList() {
     const [data, setData] = useState([]);
-    const [name, setName] = useState("");
-    const [age, setAge] = useState("");
+    const [post, setPost] = useState("");
     const [id, setId] = useState("");
 
     useEffect(() => {
@@ -25,8 +24,7 @@ function TodoList() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name,
-                age,
+                post,
             })
         })
         fetchData();
@@ -40,8 +38,7 @@ function TodoList() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name,
-                age,
+                post,
             }),
         });
         fetchData();
@@ -62,20 +59,13 @@ function TodoList() {
         <form>
             <input
                 type='text'
-                placeholder='name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-
-            <input
-                type='number'
-                placeholder='Age'
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                placeholder='Post'
+                value={post}
+                onChange={(e) => setPost(e.target.value)}
             />
             
             <button type='button' onClick={addData}>
-                Add
+                Post
             </button>
             <button type='button' onClick={updateData}>
                 Update
