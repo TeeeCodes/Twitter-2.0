@@ -1,56 +1,35 @@
+import './Login.css'
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
-   const [email, setEmail] = useState('');
-   const [pass, setPass] = useState('');
-   const [error, setError] = useState('');
-   const navigate = useNavigate();
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try{
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, pass}),
-            });
-            if (!response.ok) {
-                throw new Error('Invalid login info.');
-            }
-            const data = await response.json();
-            localStorage.setItem('token', data.token);
-            navigate.push('/');
-        }   catch(error) {
-            setError(error.message)
-        }
-    };
+  
+    const [show, setShow] = useState('hide')
+
+    const popup = () => {
+        setShow("login-popup")
+        setTimeout(() => show("hide"), 3000)
+    }
 
 	return(
-    <div className='authorizeBox'>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <div className='cover'>
+        <h1>Test</h1>
+        <input type='text' placeholder='username' />
+        <input type='password' placeholder='password' />
+
+        <div className='login-btn' onClick={popup}>Login</div>
+
+        <p className='text'>Or Login Here.</p>
+
+        <div className='alt-login'>
+            <div className='facebook'></div>
+            <div className='google'></div>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-          />
+
+        <div className={show}>
+            <h3>Login Failed</h3>
+            <p>username or password incorrect</p>
         </div>
-        <button type="submit">Login</button>
-        {error && <p>{error}</p>}
-      </form>
     </div>
 	)
 }
