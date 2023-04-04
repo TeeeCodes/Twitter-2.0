@@ -27,7 +27,7 @@ const SignUp = () => {
       }
       const data = await response.json();
       localStorage.setItem('token', data.token);
-      navigate('login');
+      navigate('dashboard');
     } catch (error) {
       setError(error.message);
     }

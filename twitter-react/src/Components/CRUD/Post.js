@@ -87,29 +87,16 @@ function TodoList() {
                 </li>
             ))}
         </ul>
-        <div class="event">
-                <div class="left-event">
-                    <h3>22</h3>
-                    <span>June</span>
-                </div>
-                <div class="right-event">
-                    <h4>Mobile Marketing</h4>
-                    <p>Wilson Tech Park</p>
-                    <a href="#">More Info</a>
-                </div>
-        </div>
-        <div class="event">
-                <div class="left-event">
-                    <h3>18</h3>
-                    <span>March</span>
-                </div>
-                <div class="right-event">
-                    <h4>Social Media</h4>
-                    <p>Wilson Tech Park</p>
-                    <a href="#">More Info</a>
-                </div>
+        <nav>
+            <div className='nav-left'>
+                <img src='images/logo.png' className='logo' alt=''/>
+                <ul>
+                    <li><img src='' alt=''/></li>
+                </ul>
             </div>
+        </nav>
     </div>
+    
   )
 }
 
