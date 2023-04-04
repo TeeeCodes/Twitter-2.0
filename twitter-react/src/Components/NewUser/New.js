@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './New.css'
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -8,12 +9,17 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const USERS_URL = "https://twitter-revised-default-rtdb.firebaseio.com/users"
+  const POSTS_URL = "https://twitter-revised-default-rtdb.firebaseio.com/posts"
+  const NEW_URL = 'https://twitter-revised-2a847-default-rtdb.firebaseio.com/newusers'
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(NEW_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 
+        "Access-Control-Allow-Origin": "https://twitter-revised-default-rtdb.firebaseio.com/"},
         body: JSON.stringify({ name, email, password }),
       });
       if (!response.ok) {
@@ -21,17 +27,17 @@ const SignUp = () => {
       }
       const data = await response.json();
       localStorage.setItem('token', data.token);
-      navigate.push('/');
+      navigate('login');
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <div>
+    <div className='cover'>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='form__input-group'>
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -40,7 +46,7 @@ const SignUp = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div>
+        <div className='form__input-group'>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -49,7 +55,7 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
+        <div className='form__input-group'>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -58,8 +64,9 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" className='login-btn'>Sign Up</button>
         {error && <p>{error}</p>}
+        <a href='/'>Already have an Account? Sign in Here!!</a>
       </form>
     </div>
   );

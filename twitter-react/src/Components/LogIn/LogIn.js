@@ -1,37 +1,84 @@
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import './Login.css'
-import React, { useState } from 'react';
-
 
 const Login = () => {
-  
-    const [show, setShow] = useState('hide')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [formError, setFormError] = useState('');
 
-    const popup = () => {
-        setShow("login-popup")
-        setTimeout(() => setShow("hide"), 2000)
+  const USERS_URL = "https://twitter-revised-2a847-default-rtdb.firebaseio.com/users";
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    const user = {
+      username,
+      password,
+    };
+
+    try {
+      // Add browser validation logic here
+      const response = await fetch(`${USERS_URL}?orderBy="username"&equalTo="${user.username}"`);
+      const users = response.data;
+
+      if (!users) {
+        throw Error("Username doesn't exist.");
+      }
+
+      const [userInfoDb] = Object.values(users);
+      if (userInfoDb.password !== user.password) {
+        throw Error("Invalid password.");
+      }
+
+      localStorage.setItem('userInfo', JSON.stringify(userInfoDb));
+      Navigate('dashboard');
+    } catch (error) {
+      setFormError(error.message);
     }
+  };
 
-	return(
-    <div className='cover'>
-        <h1>LogIn</h1>
-        <input type='text' placeholder='username' />
-        <input type='password' placeholder='password' />
+  const handleInputChange = (e) => {
+    if (e.target.id === 'username') {
+      setUsername(e.target.value);
+    } else {
+      setPassword(e.target.value);
+    }
+  };
 
-        <div className='login-btn' onClick={popup}>Login</div>
-
-        <p className='text'>Or Login Here.</p>
-
-        <div className='alt-login'>
-            <div className='facebook'></div>
-            <div className='google'></div>
+  return (
+    <div className="form">
+      <form onSubmit={handleLoginSubmit} id="login">
+        <div className="form__message">{formError}</div>
+        <div className="form__input-group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            className="form__input"
+            placeholder="Username"
+            value={username}
+            onChange={handleInputChange}
+          />
+          <div className="form__input-error-message"></div>
         </div>
-
-        <div className={show}>
-            <h3>Login Failed</h3>
-            <p>username or password incorrect</p>
+        <div className="form__input-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className="form__input"
+            placeholder="Password"
+            value={password}
+            onChange={handleInputChange}
+          />
+          <div className="form__input-error-message"></div>
         </div>
+        <button type="submit" id="submitBtn" className="form__button">Log In</button>
+        <a href='signup' className='link'>New? Create an Account Here!!!</a>
+      </form>
     </div>
-	)
-}
+  );
+};
 
-export default Login  
+export default Login;
